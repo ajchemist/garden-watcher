@@ -19,7 +19,13 @@
   :test
   {
    :extra-paths ["src/test"]
-   }
+   :extra-deps
+   {
+    org.clojure/tools.cli                       {:mvn/version "1.0.194"}
+    org.clojure/tools.deps.alpha                {:mvn/version "0.9.821"}
+    user.java.time/user.java.time               {:mvn/version "2020.267.10158"}
+    user.tools.deps.alpha/user.tools.deps.alpha {:git/url "https://github.com/aJchemist/user.tools.deps.alpha.git" :sha "1a37f7e9185e524686b58b14ddfe552fefee282e"}
+    }}
 
 
   :test-runner
