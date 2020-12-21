@@ -1,0 +1,41 @@
+{:linters
+ {:unused-binding
+  {:exclude-destructured-keys-in-fn-args true}
+
+  :unused-namespace
+  {:exclude [
+             clojure.spec.alpha
+             clojure.java.io
+             clojure.java.shell
+             clojure.string
+             clojure.test
+             garden.core
+             garden.color
+             garden.units
+             ]}
+  :unused-referred-var
+  {:exclude {
+             clojure.test [is are deftest testing]
+             garden.def   [defcssfn defrule defstyles defkeyframes]
+             garden.color [hsl hsla rgb color-name->hex]
+             garden.units [px pt em vw percent deg rem]
+             }}
+  }
+
+
+ :lint-as
+ {
+  clojure.core.cache/defcache clojure.core/defrecord
+
+  rum.core/defc  clj-kondo.lint-as/def-catch-all
+  rum.core/defcc clj-kondo.lint-as/def-catch-all
+  rum.core/defcs clj-kondo.lint-as/def-catch-all
+
+  garden.def/defcssfn           clojure.core/def
+  garden.def/defrule            clj-kondo.lint-as/def-catch-all
+  user.garden.patch/defstylesfn clojure.core/defn
+  }
+
+
+ :skip-comments true
+ }

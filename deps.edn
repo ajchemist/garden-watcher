@@ -1,0 +1,30 @@
+{:paths ["src/core"]
+ :deps  {
+         buddy/buddy-core            {:mvn/version "1.9.0"}
+         garden/garden               {:mvn/version "1.3.10"}
+         hawk/hawk                   {:mvn/version "0.2.11"}
+         org.clojure/clojure         {:mvn/version "1.10.2-rc1"}
+         org.clojure/java.classpath  {:mvn/version "1.0.0"}
+         org.clojure/tools.namespace {:mvn/version "1.1.0"}
+         }
+ :aliases
+ {
+  :provided
+  {
+   :extra-deps
+   {
+    }}
+
+
+  :test
+  {
+   :extra-paths ["src/test"]
+   }
+
+
+  :test-runner
+  {:extra-deps {com.cognitect/test-runner
+                {:git/url "https://github.com/cognitect-labs/test-runner"
+                 :sha     "f7ef16dc3b8332b0d77bc0274578ad5270fbfedd"}}
+   :main-opts  ["-m" "cognitect.test-runner" "-d" "src/test"]}
+  }}
