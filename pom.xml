@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ajchemist</groupId>
   <artifactId>garden-watcher</artifactId>
-  <version>2020.356.61184</version>
+  <version>2020.357.31701</version>
   <dependencies>
     <dependency>
       <groupId>buddy</groupId>
