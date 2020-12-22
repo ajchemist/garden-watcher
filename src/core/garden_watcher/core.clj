@@ -3,6 +3,7 @@
    [clojure.spec.alpha :as s]
    [clojure.string :as str]
    [clojure.java.io :as jio]
+   [clojure.java.classpath :as cp]
    [clojure.tools.namespace.file :as t.n.file]
    [clojure.tools.namespace.parse :as t.n.p]
    [garden.core :as garden]
@@ -21,6 +22,17 @@
 
 (s/def ::asset-path string?)
 (s/def ::compile-options (s/keys :req-un [::asset-path]))
+
+
+;;
+
+
+(def ^:private cp-dirs (set (map (memfn ^File getCanonicalPath) (cp/classpath-directories))))
+
+
+(defn- path-in-cp?
+  [path]
+  (contains? cp-dirs (.getCanonicalPath (jio/file path))))
 
 
 ;;
@@ -116,7 +128,7 @@ name as resources/public/css/<name>.css"
   "Given a list of namespaces (seq of symbol), reloads the namespaces, finds all
   syms with a :garden metadata key, and compiles them to CSS."
   [paths compile-options]
-  {:pre [(s/valid? ::compile-options compile-options)]}
+  {:pre [(every? path-in-cp? paths) (s/valid? ::compile-options compile-options)]}
   (run!
     (fn [dirpath]
      (run!
@@ -147,6 +159,19 @@ name as resources/public/css/<name>.css"
   [hawk]
   (hawk/stop! hawk)
   (println "Garden: stopped watching namespaces."))
+
+
+;; clj exec
+
+
+(defn compile-paths-x
+  [{:keys [paths compile-options]}]
+  (compile-paths paths compile-options))
+
+
+(defn start-garden-watcher-x
+  [{:keys [paths compile-options]}]
+  (start-garden-watcher! paths compile-options))
 
 
 ;;
